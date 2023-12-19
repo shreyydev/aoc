@@ -24,3 +24,16 @@ func getNumUntil(line string, startPosition int, stopChar string) int {
 	}
 	return num
 }
+
+func (g Game) display() {
+	fmt.Printf("Game id: %d\n", g.ID)
+	for setNum, setInfo := range g.Set {
+		fmt.Printf("Set %d: ", setNum+1)
+		setInfo.display()
+	}
+	printSeperator()
+}
+
+func (s SetInfo) display() {
+	fmt.Printf("{Red: %d, Green: %d, Blue: %d}\n", s.Red, s.Green, s.Blue)
+}
