@@ -11,10 +11,6 @@ func check(e error) {
 	}
 }
 
-func printSeperator() {
-	fmt.Println("--------------------------------------------------------------")
-}
-
 func getNumUntil(line string, startPosition int, stopChar string) int {
 	num := 0
 	for i := startPosition; string(line[i]) != stopChar; i++ {
@@ -23,6 +19,10 @@ func getNumUntil(line string, startPosition int, stopChar string) int {
 		num = num*10 + id
 	}
 	return num
+}
+
+func printSeperator() {
+	fmt.Println("--------------------------------------------------------------")
 }
 
 func (g Game) display() {
