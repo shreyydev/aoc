@@ -28,7 +28,7 @@ const maxGreenCubes = 13
 const maxBlueCubes = 14
 
 func main() {
-	file, err := os.Open("input2.txt")
+	file, err := os.Open("input/input2.txt")
 	check(err)
 	defer file.Close()
 
