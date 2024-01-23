@@ -150,6 +150,6 @@ func (m *CharMap) display() {
 
 	for _, k := range keys {
 		k.display()
-		fmt.Printf(": %s\n", mv[k])
+		fmt.Printf(": %c\n", mv[k])
 	}
 }
