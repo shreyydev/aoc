@@ -13,12 +13,13 @@ type Card struct {
 	ID             int
 	WinningNumbers []int
 	NumberYouHave  []int
+	Count          int
 }
 
 type Cards []Card
 
 func main() {
-	file, err := os.Open("input/input1.txt")
+	file, err := os.Open("input/input2.txt")
 	check(err)
 
 	scanner := bufio.NewScanner(file)
@@ -30,6 +31,7 @@ func main() {
 	}
 	// cards.display()
 	cards.part1()
+	cards.part2()
 }
 
 func (c *Cards) part1() {
@@ -38,6 +40,31 @@ func (c *Cards) part1() {
 		sum += card.get_card_points()
 	}
 	fmt.Printf("Sum: %v\n", sum)
+}
+
+func (c *Cards) part2() {
+	for i := 0; i < len(*c); i++ {
+		card := (*c)[i]
+		cards_won := card.get_matching_winnning_numbers()
+		for j := i + 1; j < i+1+cards_won; j++ {
+			(*c)[j].Count += card.Count
+		}
+	}
+	sum := 0
+	for _, card := range *c {
+		sum += card.Count
+	}
+	fmt.Printf("Total cards: %d", sum)
+}
+
+func (c *Card) get_matching_winnning_numbers() int {
+	matching_nums := 0
+	for _, card_num := range c.NumberYouHave {
+		if slices.Contains(c.WinningNumbers, card_num) {
+			matching_nums++
+		}
+	}
+	return matching_nums
 }
 
 func parse_card(line string) Card {
@@ -64,7 +91,12 @@ func parse_card(line string) Card {
 		numbers_you_have = append(numbers_you_have, num)
 	}
 
-	return Card{ID: ID_Int, WinningNumbers: winning_numbers, NumberYouHave: numbers_you_have}
+	return Card{
+		ID:             ID_Int,
+		WinningNumbers: winning_numbers,
+		NumberYouHave:  numbers_you_have,
+		Count:          1,
+	}
 }
 
 func (c *Card) get_card_points() int {
